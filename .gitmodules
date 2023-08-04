@@ -1,0 +1,3 @@
+[submodule "client/img/critters"]
+	path = client/img/critters
+	url = https://github.com/pocketthemouse/CritterSprites.git

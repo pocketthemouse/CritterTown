@@ -1,13 +1,13 @@
 function portraitUrl(species, name) {
-  return `/img/portrait/${species}/${name}.png`
+  return `/img/critters/portrait/${species}/${name}.png`
 }
 
 function animDataUrl(species) {
-  return `/img/sprite/${species}/AnimData.xml`
+  return `/img/critters/sprite/${species}/AnimData.xml`
 }
 
 function animUrl(species, name) {
-  return `/img/sprite/${species}/${name}-Anim.png`
+  return `/img/critters/sprite/${species}/${name}-Anim.png`
 }
 
 class Camera {
