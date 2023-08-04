@@ -120,16 +120,25 @@ function moveCharacter() {
       let destinationTile = map.getTile(destination)
 
       if ( destinationTile ) {
-        if ( destinationTile.density ) {
+        // walk through walls with ctrl
+        let wtw = held[17]
+        let anim = "Walk"
+        if (wtw && character.animations["Hop"])
+          anim = "Hop"
+        
+        if ( destinationTile.density && !wtw ) {
           // bonk
           destination.x = character.x
           destination.y = character.y
+        } else {
+          character.queueAnimation(anim)
         }
 
         sendCmd("MOV", {
           from: [character.x, character.y],
           to: [destination.x, destination.y],
-          dir: destination.facing.tilemapIndex
+          dir: destination.facing.tilemapIndex,
+          animation: anim
         })
 
         character.moveTo(destination)

@@ -1,3 +1,8 @@
+@font-face {
+  font-family: pmdfont;
+  src: url(pmdfont.ttf);
+}
+
 html, body {
   height: 100%;
   
@@ -6,8 +11,12 @@ html, body {
 
   overflow: hidden;
 
-  font-family: sans-serif;
   color: white;
+}
+
+* {
+  font-family: pmdfont, sans-serif;
+  font-size: 24px;
 }
 
 div#wrapper {
@@ -31,6 +40,8 @@ canvas {
   background-color: grey;
   position: relative;
   border-left: 1px solid black;
+
+  font-size: 32px;
 }
 
 #consoleContainer {
@@ -163,4 +174,34 @@ img.portrait {
 
 p {
   margin: 2px;
+}
+
+#animation-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#animation-list li {
+  padding-bottom: 4px;
+  padding-left: 4px;
+}
+
+#animation-list li button {
+  margin-right: 0.5em;
+}
+
+#portrait-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#portrait-list li {
+  padding-bottom: 4px;
+  padding-left: 4px;
+}
+
+#portrait-list img {
+  padding-right: 4px;
 }

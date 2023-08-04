@@ -10,6 +10,10 @@ function animUrl(species, name) {
   return `/img/critters/sprite/${species}/${name}-Anim.png`
 }
 
+function cryUrl(species) {
+  return `/cries/${species.split('/')[0]}.mp3`
+}
+
 class Camera {
   static scaleMin = 1
   static scaleMax = 8
@@ -57,6 +61,7 @@ class Animation {
 }
 
 class Critter {
+  static MOVEMENT_ANIMATIONS = ['Walk', 'Hop']
   constructor(data) {
     this.id = data.id
     this.username = data.username
@@ -74,11 +79,14 @@ class Critter {
 
     this.animationQueue = []
 
+    this.cry = document.createElement("audio")
+    this.cry.src = cryUrl(`${this.species}`)
+
     this.fetchAnimationData()
   }
 
   displayX() {
-    if ( this.animationQueue[0] == 'Walk' ) {
+    if ( Critter.MOVEMENT_ANIMATIONS.includes(this.animationQueue[0]) ) {
       return (
         this.x - Facing.VECTORS[this.facing.imageIndex].x * (1-this.animationPercentage()) 
       ) * TILESIZE
@@ -87,7 +95,7 @@ class Critter {
   }
 
   displayY() {
-    if ( this.animationQueue[0] == 'Walk' ) {
+    if ( Critter.MOVEMENT_ANIMATIONS.includes(this.animationQueue[0]) ) {
       return (
         this.y - Facing.VECTORS[this.facing.imageIndex].y * (1-this.animationPercentage()) 
       ) * TILESIZE
@@ -115,6 +123,13 @@ class Critter {
       const parser = new DOMParser()
 
       this.parseAnimData(parser.parseFromString(data, "application/xml"))
+
+      if ( this == objects[me] ) {
+        listAnimations(this.animations)
+        if (tracker) {
+          listPortraits(this.species)
+        }
+      }
     })
   }
 
@@ -190,10 +205,6 @@ class Critter {
   }
 
   moveTo({x, y, facing}) {
-    if ((x !== undefined && x != this.x) || (y !== undefined && y != this.y)) {
-      this.queueAnimation("Walk")
-    }
-
     this.x = x === undefined ? this.x : x
     this.y = y === undefined ? this.y : y
     this.facing = facing || this.facing
@@ -307,11 +318,19 @@ let worldDirty = true;
 let actors;
 let actorsCtx;
 let chat;
+let tracker;
 
 const TILESIZE = 24
-const NAMETAGFONTSIZE = 12
+const NAMETAGFONTSIZE = 16
 
 function init() {
+  fetch("img/critters/tracker.json").then((data) => {
+    tracker = JSON.parse(data)
+    if (objects[me]) {
+      listPortraits(this.species)
+    }
+  })
+
   world = document.getElementById("world")
   worldCtx = world.getContext("2d", {"alpha": false})
   actors = document.getElementById("actors")
@@ -407,7 +426,7 @@ function draw() {
   camera.applyTransform(actorsCtx)
 
   actorsCtx.textAlign = "center"
-  actorsCtx.font = `${NAMETAGFONTSIZE}px sans-serif`
+  actorsCtx.font = `${NAMETAGFONTSIZE}px pmdfont`
 
   Object.values(objects)
   .sort((a,b) => a.displayY() > b.displayY())

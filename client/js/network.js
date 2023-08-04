@@ -61,6 +61,7 @@ function msgHandler(args) {
 
   if ( args.id ) {
     species = objects[args.id].species
+    objects[args.id].cry.play()
   }
 
   if ( args.name ) {
@@ -96,7 +97,11 @@ function whoHandler(args) {
 }
 
 function movHandler(args) {
-  objects[args.id].moveTo({
+  if (args.animation) {
+    objects[args.id]?.queueAnimation(args.animation)
+  }
+
+  objects[args.id]?.moveTo({
     x: args?.to?.[0],
     y: args?.to?.[1],
     facing: Facing.fromTilemapIndex(args.dir)

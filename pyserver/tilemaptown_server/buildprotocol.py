@@ -134,7 +134,7 @@ def fn_MOV(map, client, arg):
 	# Broadcast that this entity moved
 	data = {'id': client.protocol_id()}
 	any_valid_fields = False
-	for valid_field in ('from', 'to', 'dir'):
+	for valid_field in ('from', 'to', 'dir', 'animation'):
 		if valid_field in arg:
 			any_valid_fields = True
 			data[valid_field] = arg[valid_field]

@@ -28,7 +28,7 @@ class Client(Entity):
 		self.ws = websocket
 		self.name = 'Guest '+ str(userCounter)
 		userCounter += 1
-		self.pic = ["pmd", "0133", "Idle"]
+		self.pic = ["pmd", random.choice(["0001","0004","0007"]), "Idle"]
 
 		self.ping_timer = 180
 		self.idle_timer = 0

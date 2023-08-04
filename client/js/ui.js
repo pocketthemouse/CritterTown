@@ -64,7 +64,75 @@ function viewCritter() {
   toggleDisplay(critter);
 }
 
+function viewAbout() {
+  var about = document.getElementById('about');
+  toggleDisplay(about);
+}
+
 function viewAnimations() {
   var animations = document.getElementById('animations');
   toggleDisplay(animations);
+}
+
+function viewPortraits() {
+  var portraits = document.getElementById('portraits');
+  toggleDisplay(portraits);
+}
+
+function listAnimations(animations) {
+  let list = document.getElementById('animation-list')
+
+  list.innerHTML = ''
+
+  Object.keys(animations).sort().forEach((name) => {
+    let li = document.createElement("li")
+
+    let queueButton = document.createElement("button")
+    queueButton.innerText = 'Play'
+    queueButton.addEventListener('click', (event) => {
+      sendCmd("MOV",{"animation":name})
+    })
+    li.append(queueButton)
+
+    let repeatButton = document.createElement("button")
+    repeatButton.innerText = 'Repeat'
+    repeatButton.addEventListener('click', (event) => {
+      let pic = objects[me]?.pic
+      if (!pic) { return }
+      pic[2] = name
+
+      sendCmd("BAG",{"update":{"id":me, "pic":pic}})
+    })
+    li.append(repeatButton)
+
+    let span = document.createElement("span")
+    span.innerText = name
+    li.append(span)
+    
+    list.append(li)
+  })
+}
+
+function listPortraits(species) {
+  let list = document.getElementById('portrait-list')
+
+  list.innerHTML = ''
+
+  Object.keys(tracker[species].portrait_files).sort().forEach((name) => {
+    if (!tracker[species].portrait_files[name]) {
+      return
+    }
+
+    let li = document.createElement("li")
+
+    let preview = document.createElement("img")
+    preview.src = portraitUrl(species, name)
+    li.append(preview)
+
+    let span = document.createElement("span")
+    span.innerText = name
+    li.append(span)
+    
+    list.append(li)
+  })
 }

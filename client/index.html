@@ -108,6 +108,8 @@
         <li><a id="navbuild"     href="#" onclick="viewBuild();">Build</a></li>
         <li><a id="navbuild"     href="#" onclick="viewCritter();">Character</a></li>
         <li><a id="navbuild"     href="#" onclick="viewAnimations();">Animations</a></li>
+        <li><a id="navbuild"     href="#" onclick="viewPortraits();">Portraits</a></li>
+        <li><a id="navbuild"     href="#" onclick="viewAbout();">About</a></li>
       </ul>
 
       <div id="loginWindow" class="modal">
@@ -261,6 +263,19 @@
         </div>
       </widget-window>
 
+      <widget-window id="portraits" style="display: none;">
+        <span slot="title">Portraits</span>
+        <div slot="contents" id="portrait-contents">
+        <p>These are the portraits for your critter.
+        <br>
+        Type !Portraitname before your message to use a different portrait.
+        <br>
+        Different critters may have different portraits available.</p>
+          <ul id="portrait-list">
+          </ul>
+        </div>
+      </widget-window>
+
       <widget-window id="options" style="display: none;">
         <span slot="title">Options</span>
         <div slot="contents">
@@ -318,6 +333,27 @@
           <canvas class="unselectable" id="tilesetCanvas'+Item.id+'" width="256" height="16" oncontextmenu="return false;" imageSmoothingEnabled="false"></canvas>
           <br>
           <button>Add tile</button>
+        </div>
+      </widget-window>
+
+      <widget-window id="about" style="display: none;">
+        <span slot="title">About</span>
+        <div slot="contents">
+          <p>
+            Walk around with WASD or Arrow keys.
+            <br>
+            Hold Shift and press a direction to turn.
+            <br>
+            Hold Ctrl and press a direction to Hop. You can Hop onto blocked tiles.
+            <br>
+            Click a tile in the Build menu to place it under yourself.
+            <br>
+            <br>
+            Critter Town is based on and inspired by <a target="_blank" href="http://novasquirrel.com/town/">Tilemap Town</a>.
+            <br>
+            Critter sprites are taken from <a target="_blank" href="https://sprites.pmdcollab.org/">SpriteCollab</a>.
+            <br>
+            Please see their site for individual artist credits.
         </div>
       </widget-window>
 
