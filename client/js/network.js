@@ -4,7 +4,7 @@ const SERVERSPECIES = "0000/0001"
 
 function connect() {
   say('Connecting to server...', SERVERSPECIES, "Determined")
-  socket = new WebSocket("ws://localhost:12550")
+  socket = new WebSocket(`ws://${location.hostname}:12550`)
   
   socket.onopen = function (event) {
     say('Connected!', SERVERSPECIES, "Happy")
