@@ -327,7 +327,7 @@ function init() {
   fetch("img/critters/tracker.json").then((data) => {
     tracker = JSON.parse(data)
     if (objects?.[me]) {
-      listPortraits(me.species)
+      listPortraits(objects[me].species)
     }
   })
 
