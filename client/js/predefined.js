@@ -1,7 +1,62 @@
+let AtomTypes = {
+  NONE      : "", // no special behavior
+  SIGN      : "sign", // display a message upon being bumped into
+  DOOR      : "door",
+  CONTAINER : "container",
+  ICE       : "ice",
+  ESCALATOR : "escalator",
+  WATER     : "water"
+};
+
+const DefaultIconSheets = {
+  "-1": "/img/applewoods.png",
+  "0": "/img/applewoods.png"
+};
+
+class Facing {
+  static S  = new Facing(0,2)
+  static SE = new Facing(1,1)
+  static E  = new Facing(2,0)
+  static NE = new Facing(3,7)
+  static N  = new Facing(4,6)
+  static NW = new Facing(5,5)
+  static W  = new Facing(6,4)
+  static SW = new Facing(7,3)
+
+  static VECTORS = [
+    {x:  0, y:  1},
+    {x:  1, y:  1},
+    {x:  1, y:  0},
+    {x:  1, y: -1},
+    {x:  0, y: -1},
+    {x: -1, y: -1},
+    {x: -1, y:  0},
+    {x: -1, y:  1}
+  ]
+
+  constructor(imageIndex, tilemapIndex){
+    this.imageIndex = imageIndex
+    this.tilemapIndex = tilemapIndex
+  }
+
+  static fromTilemapIndex(index){
+    switch(index){
+      case 0: return Facing.E
+      case 1: return Facing.SE
+      case 2: return Facing.S
+      case 3: return Facing.SW
+      case 4: return Facing.W
+      case 5: return Facing.NW
+      case 6: return Facing.N
+      case 7: return Facing.NE
+    }
+  }
+}
+
 var Predefined = {};
 Predefined.grass = {
   name: "grass",
-  pic: [0, 0, 4],
+  pic: [0, 13, 1],
   density: false,
 };
 
@@ -58,7 +113,7 @@ Predefined.waterfall = {
   pic: [-1, 1, 0],
   density: false,
   type: AtomTypes.ESCALATOR,
-  dir: Directions.SOUTH,  
+  dir: Facing.S,  
 };
 
 Predefined.brownsand = {
@@ -163,7 +218,7 @@ Predefined.forcedown = {
   pic: [0, 12, 19],
   density: false,
   type: AtomTypes.ESCALATOR,
-  dir: Directions.SOUTH,
+  dir: Facing.S
 };
 
 Predefined.forceup = {
@@ -171,7 +226,7 @@ Predefined.forceup = {
   pic: [0, 13, 19],
   density: false,
   type: AtomTypes.ESCALATOR,
-  dir: Directions.NORTH,
+  dir: Facing.N
 };
 
 Predefined.forceleft = {
@@ -179,7 +234,7 @@ Predefined.forceleft = {
   pic: [0, 14, 19],
   density: false,
   type: AtomTypes.ESCALATOR,
-  dir: Directions.WEST,
+  dir: Facing.W
 };
 
 Predefined.forceright = {
@@ -187,7 +242,7 @@ Predefined.forceright = {
   pic: [0, 15, 19],
   density: false,
   type: AtomTypes.ESCALATOR,
-  dir: Directions.EAST,
+  dir: Facing.E
 };
 
 Predefined.bluewall = {
@@ -1062,7 +1117,6 @@ Predefined.colorfloor15 = {
   pic: [-1, 14, 8],
 };
 
-
 var PredefinedArray = [];
 var PredefinedArrayNames = [];
 var i=0;
@@ -1070,10 +1124,3 @@ for (var key in Predefined) {
   PredefinedArrayNames[i] = key;
   PredefinedArray[i++] = Predefined[key];
 }
-
-/*
-for (var key in Predefined) {
-  var obj = Predefined[key];
-  console.log(obj.name);
-}
-*/

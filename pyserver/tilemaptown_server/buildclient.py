@@ -28,7 +28,7 @@ class Client(Entity):
 		self.ws = websocket
 		self.name = 'Guest '+ str(userCounter)
 		userCounter += 1
-		self.pic = [0, 2, 25]
+		self.pic = ["pmd", "0133", "Idle"]
 
 		self.ping_timer = 180
 		self.idle_timer = 0

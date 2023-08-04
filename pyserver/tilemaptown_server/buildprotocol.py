@@ -461,7 +461,8 @@ def fn_EML(map, client, arg):
 def fn_MSG(map, client, arg):
 	if map:
 		text = arg["text"]
-		map.broadcast("MSG", {'name': client.name, 'username': client.username_or_id(), 'text': escape_tags(text)}, remote_category=botwatch_type['chat'])
+		portrait = arg["portrait"]
+		map.broadcast("MSG", {'name': client.name, 'portrait': portrait, 'username': client.username_or_id(), 'id': client.protocol_id(), 'text': escape_tags(text)}, remote_category=botwatch_type['chat'])
 
 @protocol_command()
 def fn_TSD(map, client, arg):

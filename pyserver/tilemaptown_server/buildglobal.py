@@ -303,6 +303,8 @@ def filter_username(text):
 	return ''.join([i for i in text if (i.isalnum() or i == '_')]).lower()
 
 def image_url_is_okay(url):
+	if url == 'pmd':
+		return True
 	for w in Config["Images"]["URLWhitelist"]:
 		if url.startswith(w):
 			return True
