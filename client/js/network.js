@@ -65,7 +65,11 @@ function msgHandler(args) {
   }
 
   if ( args.name ) {
-    say( `${args.name}: ${args.text}`, species, portrait, args.class )
+    if ( args.text.startsWith('/me ') ) {
+      say( `* ${args.name} ${args.text.substring(4)}`, species, portrait, args.class )
+    } else {
+      say( `${args.name}: ${args.text}`, species, portrait, args.class )
+    }
   } else {
     say( `Server Message: ${args.text}`, species, portrait, args.class )
   }
