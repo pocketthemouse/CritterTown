@@ -126,7 +126,7 @@ class Critter {
 
       if ( this == objects[me] ) {
         listAnimations(this.animations)
-        if (tracker) {
+        if (tracker?.[this.species]) {
           listPortraits(this.species)
         }
       }
@@ -326,8 +326,8 @@ const NAMETAGFONTSIZE = 16
 function init() {
   fetch("img/critters/tracker.json").then((data) => {
     tracker = JSON.parse(data)
-    if (objects[me]) {
-      listPortraits(this.species)
+    if (objects?.[me]) {
+      listPortraits(me.species)
     }
   })
 
